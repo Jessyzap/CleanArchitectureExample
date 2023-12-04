@@ -17,6 +17,8 @@ class AdviceViewModel(private val adviceRepository: IAdviceRepository) : ViewMod
         get() = _advice
 
     fun getAdvice() {
+        _advice.value = ViewState.Loading()
+
         viewModelScope.launch {
             when (val response = adviceRepository.getAdvice()) {
                 is ResponseWrapper.SuccessResult -> {
